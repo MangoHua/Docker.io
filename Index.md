@@ -61,3 +61,41 @@ Use command nano to set up the file ending in yml
 
         nano docker-compose.yml
 
+We download Wordpress by the docker-compose.yml
+
+        version: '3.3'
+         services:
+          db:
+            image: mysql:5.7
+          volumes:
+            - db_data:/var/lib/mysql
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: 12345678
+          wordpress:
+            depends_on:
+              - db
+          image: wordpress:latest
+          ports:
+            - "80:80"
+          restart: always
+          environment:
+            WORDPRESS_DB_HOST: db
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: 123456789
+            WORDPRESS_DB_NAME: admin
+          volume:
+            db_data: {}
+    
+To run this file
+
+        docker-compose up -d
+        
+Then we insert http:// localhost to get into WordPress
+
+Here we get!
+
+
